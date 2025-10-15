@@ -1,0 +1,257 @@
+<!--
+Project: Site Simples de Vendas de Imóveis
+Arquivos neste documento:
+  - index.html      (página de boas-vindas com filtro e link)
+  - listings.html   (página de listagem de imóveis com fotos)
+
+Salve cada seção em arquivos separados (index.html e listings.html) e abra index.html no navegador.
+-->
+
+<!-- FILE: index.html -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bem-vindo - Imóveis Fácil</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;}
+    body{margin:0;background:#f4f7fb;color:#1a1a1a}
+    header{background:#0b5ed7;color:white;padding:28px 18px;text-align:center}
+    .container{max-width:980px;margin:28px auto;padding:0 18px}
+    .card{background:white;border-radius:10px;padding:18px;box-shadow:0 6px 18px rgba(12,20,40,0.06)}
+    h1{margin:0 0 8px 0;font-size:28px}
+    p.lead{margin:0 0 12px;color:#334155}
+    form.row{display:flex;gap:12px;flex-wrap:wrap}
+    label{font-size:13px;color:#374151}
+    input,select{padding:10px 12px;border-radius:8px;border:1px solid #d1d5db;font-size:14px}
+    .btn{background:#0b5ed7;color:white;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
+    .link-list{display:inline-block;margin-top:14px}
+    footer{margin:40px 0 80px;color:#6b7280;text-align:center}
+    @media(max-width:600px){form.row{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Imóveis Fácil</h2>
+    <div style="font-size:15px;opacity:.95">Encontre seu próximo imóvel de forma rápida</div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1>Bem-vindo!</h1>
+      <p class="lead">Busque casas, apartamentos e terrenos. Use o filtro abaixo para refinar sua pesquisa e depois clique em "Ver imóveis".</p>
+
+      <form id="filterForm" class="row" onsubmit="applyFilter(event)">
+        <div style="flex:1;min-width:160px">
+          <label for="type">Tipo</label><br>
+          <select id="type" name="type">
+            <option value="">Qualquer</option>
+            <option value="casa">Casa</option>
+            <option value="apartamento">Apartamento</option>
+            <option value="terreno">Terreno</option>
+          </select>
+        </div>
+
+        <div style="width:140px;min-width:120px">
+          <label for="minPrice">Preço mínimo (R$)</label><br>
+          <input id="minPrice" name="minPrice" type="number" placeholder="0" />
+        </div>
+
+        <div style="width:140px;min-width:120px">
+          <label for="maxPrice">Preço máximo (R$)</label><br>
+          <input id="maxPrice" name="maxPrice" type="number" placeholder="9999999" />
+        </div>
+
+        <div style="width:120px;min-width:120px">
+          <label for="beds">Quartos</label><br>
+          <select id="beds" name="beds">
+            <option value="">Qualquer</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
+        </div>
+
+        <div style="display:flex;align-items:flex-end">
+          <button class="btn" type="submit">Aplicar filtro</button>
+        </div>
+      </form>
+
+      <div style="margin-top:14px">
+        <!-- Link para a outra página com query string com os filtros -->
+        <a id="viewListings" class="link-list" href="listings.html" role="link">🔎 Ver imóveis</a>
+      </div>
+
+      <p style="margin-top:12px;color:#6b7280;font-size:13px">Dica: o botão "Ver imóveis" envia os filtros como parâmetros na URL para a página de listagem.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div>Imóveis Fácil — &copy; <span id="year"></span></div>
+  </footer>
+
+  <script>
+    // Coloca o ano atual no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function applyFilter(e){
+      e.preventDefault();
+      const params = new URLSearchParams();
+      const type = document.getElementById('type').value;
+      const minPrice = document.getElementById('minPrice').value;
+      const maxPrice = document.getElementById('maxPrice').value;
+      const beds = document.getElementById('beds').value;
+      if(type) params.set('type', type);
+      if(minPrice) params.set('minPrice', minPrice);
+      if(maxPrice) params.set('maxPrice', maxPrice);
+      if(beds) params.set('beds', beds);
+      // Atualiza o link para a página de listagens com os parâmetros
+      const link = document.getElementById('viewListings');
+      link.href = 'listings.html?' + params.toString();
+      // Também navegamos automaticamente para a página de listagens
+      window.location.href = link.href;
+    }
+  </script>
+</body>
+</html>
+
+
+<!-- FILE: listings.html -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imóveis - Resultados</title>
+  <style>
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;margin:0;background:#f8fafc;color:#0f172a}
+    header{background:#0b5ed7;color:white;padding:18px;text-align:center}
+    .container{max-width:1100px;margin:20px auto;padding:0 18px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+    .card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 8px 20px rgba(12,20,40,0.06)}
+    .card img{width:100%;height:200px;object-fit:cover;display:block}
+    .card-body{padding:12px}
+    .price{font-weight:700;color:#0b5ed7}
+    .meta{font-size:13px;color:#475569;margin-top:6px}
+    .back{display:inline-block;margin:12px 0;padding:8px 12px;border-radius:8px;border:1px solid #d1d5db;text-decoration:none;color:#0f172a}
+    .empty{padding:28px;background:#fff3; border-radius:8px;text-align:center}
+  </style>\head>
+<body>
+  <header>
+    <h2>Resultados</h2>
+    <div style="font-size:13px;opacity:.9">Imóveis encontrados</div>
+  </header>
+  <main class="container">
+    <a class="back" href="index.html">← Voltar</a>
+    <div id="results" style="margin-top:12px"></div>
+  </main>
+
+  <script>
+    // Mock de dados dos imóveis. Cada imóvel tem id, título, preço, tipo, quartos, cidade e imagens.
+    const properties = [
+      {
+        id:1,
+        title:'Casa espaçosa com quintal',
+        price:420000,
+        type:'casa',
+        beds:3,
+        city:'Juiz de Fora',
+        images:[
+          'https://picsum.photos/id/1018/1200/800',
+          'https://picsum.photos/id/1015/1200/800'
+        ]
+      },
+      {
+        id:2,
+        title:'Apartamento moderno no centro',
+        price:550000,
+        type:'apartamento',
+        beds:2,
+        city:'Belo Horizonte',
+        images:[
+          'https://picsum.photos/id/1025/1200/800',
+          'https://picsum.photos/id/1024/1200/800'
+        ]
+      },
+      {
+        id:3,
+        title:'Terreno bem localizado',
+        price:250000,
+        type:'terreno',
+        beds:0,
+        city:'Juiz de Fora',
+        images:[
+          'https://picsum.photos/id/1033/1200/800'
+        ]
+      }
+    ];
+
+    // Lê parâmetros da query string
+    const qs = new URLSearchParams(location.search);
+    const filterType = qs.get('type');
+    const minPrice = qs.get('minPrice') ? Number(qs.get('minPrice')) : 0;
+    const maxPrice = qs.get('maxPrice') ? Number(qs.get('maxPrice')) : Infinity;
+    const beds = qs.get('beds') ? Number(qs.get('beds')) : 0;
+
+    function matches(p){
+      if(filterType && p.type !== filterType) return false;
+      if(p.price < minPrice) return false;
+      if(p.price > maxPrice) return false;
+      if(beds && p.beds < beds) return false;
+      return true;
+    }
+
+    const filtered = properties.filter(matches);
+
+    const resultsEl = document.getElementById('results');
+    if(filtered.length===0){
+      resultsEl.innerHTML = '<div class="empty card">Nenhum imóvel encontrado com os filtros aplicados.</div>';
+    } else {
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      filtered.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'card';
+
+        // Imagem principal
+        const img = document.createElement('img');
+        img.src = p.images[0];
+        img.alt = p.title;
+        card.appendChild(img);
+
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        body.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${p.title}</strong><div class="meta">${p.city} • ${p.type}</div></div><div class="price">R$ ${p.price.toLocaleString('pt-BR')}</div></div>`;
+
+        // Mini galeria com botões para ver mais fotos
+        if(p.images.length>1){
+          const gallery = document.createElement('div');
+          gallery.style.marginTop = '10px';
+          p.images.forEach((src, idx) => {
+            const thumb = document.createElement('img');
+            thumb.src = src;
+            thumb.style.width = '80px';
+            thumb.style.height = '60px';
+            thumb.style.objectFit = 'cover';
+            thumb.style.marginRight = '8px';
+            thumb.style.cursor = 'pointer';
+            thumb.title = `Foto ${idx+1}`;
+            thumb.onclick = () => {
+              // troca a imagem principal
+              img.src = src;
+            };
+            gallery.appendChild(thumb);
+          });
+          body.appendChild(gallery);
+        }
+
+        card.appendChild(body);
+        grid.appendChild(card);
+      });
+      resultsEl.appendChild(grid);
+    }
+  </script>
+</body>
+</html>
