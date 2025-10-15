@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MariBroker - Venda de Imóveis</title>
+<style>
+body {font-family: Arial, sans-serif; margin:0; background-color: #f5f5f5;}
+header {background-color: #003366; color:white; text-align:center; padding:1em;}
+h1 {margin:0;}
+.container {width:90%; margin:20px auto;}
+h2 {border-bottom:3px solid #003366; padding-bottom:5px; color:#003366;}
+.carousel-container {display:flex; overflow-x:auto; gap:20px; padding:10px 0;}
+.carousel-container::-webkit-scrollbar {height:8px;}
+.carousel-container::-webkit-scrollbar-thumb {background:#003366; border-radius:4px;}
+.card {background:white; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); flex:0 0 320px; padding:10px;}
+.card img.main {width:100%; height:180px; object-fit:cover; border-radius:8px;}
+.thumbnails {display:flex; justify-content:center; margin-top:5px; gap:5px;}
+.thumbnails img {width:50px; height:35px; object-fit:cover; border-radius:5px; cursor:pointer; border:2px solid transparent;}
+.thumbnails img.active {border-color:#003366;}
+.descricao {margin-top:5px;}
+.descricao h3 {margin:5px 0; color:#003366; font-size:16px;}
+.descricao p {margin:2px 0; font-size:14px;}
+a {color:#003366; text-decoration:none; font-weight:bold;}
+a:hover {text-decoration:underline;}
+</style>
+</head>
+<body>
+<header>
+<h1>MariBroker - Venda de Imóveis</h1>
+<p>Seu próximo imóvel está aqui!</p>
+</header>
+
+<div class="container">
+
+<h2>🏢 Salas Comerciais</h2>
+<div class="carousel-container" id="salas"></div>
+
+<h2>🏠 Casas e Apartamentos</h2>
+<div class="carousel-container" id="casas"></div>
+
+<h2>🌳 Terrenos</h2>
+<div class="carousel-container" id="terrenos"></div>
+
+</div>
+
+<script>
+function criarCard(fotos, titulo, descricao, idLink){
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const mainImg = document.createElement('img');
+  mainImg.src = fotos[0];
+  mainImg.className = 'main';
+  mainImg.id = idLink + '-main';
+  card.appendChild(mainImg);
+
+  const thumbsDiv = document.createElement('div');
+  thumbsDiv.className = 'thumbnails';
+
+  fotos.forEach((f,i)=>{
+    const thumb = document.createElement('img');
+    thumb.src = f;
+    if(i===0) thumb.classList.add('active');
+    thumb.onclick = ()=>{mainImg.src=f; thumbsDiv.querySelectorAll('img').forEach(t=>t.classList.remove('active')); thumb.classList.add('active');};
+    thumbsDiv.appendChild(thumb);
+  });
+
+  card.appendChild(thumbsDiv);
+
+  const descDiv = document.createElement('div');
+  descDiv.className = 'descricao';
+  descDiv.innerHTML = `<h3>${titulo}</h3><p>${descricao}</p><a href='imovel.html?id=${idLink}'>Ver mais detalhes</a>`;
+
+  card.appendChild(descDiv);
+
+  return card;
+}
+
+function gerarImoveis(){
+  const salas = [
+    {f:['https://source.unsplash.com/400x300/?office,1','https://source.unsplash.com/400x300/?office,2','https://source.unsplash.com/400x300/?office,3','https://source.unsplash.com/400x300/?office,4','https://source.unsplash.com/400x300/?office,5'], t:'Sala Comercial - Centro', d:'50m², banheiro privativo, Juiz de Fora', id:'sala1'},
+    {f:['https://source.unsplash.com/400x300/?office,6','https://source.unsplash.com/400x300/?office,7','https://source.unsplash.com/400x300/?office,8','https://source.unsplash.com/400x300/?office,9','https://source.unsplash.com/400x300/?office,10'], t:'Sala Comercial - Av. Brasil', d:'60m², ótima localização, Belo Horizonte', id:'sala2'}
+  ];
+
+  const casas = [
+    {f:['https://source.unsplash.com/400x300/?house,1','https://source.unsplash.com/400x300/?house,2','https://source.unsplash.com/400x300/?house,3','https://source.unsplash.com/400x300/?house,4','https://source.unsplash.com/400x300/?house,5'], t:'Apartamento - Bairro Cascatinha', d:'3 quartos, 2 banheiros, 1 vaga, Juiz de Fora', id:'casa1'},
+    {f:['https://source.unsplash.com/400x300/?apartment,6','https://source.unsplash.com/400x300/?apartment,7','https://source.unsplash.com/400x300/?apartment,8','https://source.unsplash.com/400x300/?apartment,9','https://source.unsplash.com/400x300/?apartment,10'], t:'Casa Moderna', d:'3 quartos, suíte, piscina, Juiz de Fora', id:'casa2'}
+  ];
+
+  const terrenos = [
+    {f:['https://source.unsplash.com/400x300/?land,1','https://source.unsplash.com/400x300/?land,2','https://source.unsplash.com/400x300/?land,3','https://source.unsplash.com/400x300/?land,4','https://source.unsplash.com/400x300/?land,5'], t:'Terreno - Zona Norte', d:'400m², pronto para construir, Juiz de Fora', id:'terreno1'},
+    {f:['https://source.unsplash.com/400x300/?land,6','https://source.unsplash.com/400x300/?land,7','https://source.unsplash.com/400x300/?land,8','https://source.unsplash.com/400x300/?land,9','https://source.unsplash.com/400x300/?land,10'], t:'Terreno Amplo', d:'500m², próximo ao centro, Mariana', id:'terreno2'}
+  ];
+
+  salas.forEach(s=>document.getElementById('salas').appendChild(criarCard(s.f,s.t,s.d,s.id)));
+  casas.forEach(c=>document.getElementById('casas').appendChild(criarCard(c.f,c.t,c.d,c.id)));
+  terrenos.forEach(t=>document.getElementById('terrenos').appendChild(criarCard(t.f,t.t,t.d,t.id)));
+}
+
+gerarImoveis();
+</script>
+</body>
+</html>
