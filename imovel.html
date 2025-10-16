@@ -1,13 +1,32 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MariBroker — Detalhes do Imóvel</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MariBroker — Detalhes do Imóvel</title>
+<style>
+body{background:#0b0b0b;color:#fff;font-family:Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial;margin:0;padding:20px}
+h1{color:#c59d26}
+img{max-width:100%;border-radius:12px}
+.thumb-container{display:flex;gap:8px;margin-top:10px}
+.thumb-container img{width:60px;height:40px;object-fit:cover;border:2px solid transparent;border-radius:6px;cursor:pointer}
+.thumb-container img.active{border-color:#c59d26}
+</style>
 </head>
 <body>
-  <h1>Detalhes do imóvel (exemplo)</h1>
-  <p>Galeria completa e descrição detalhada aparecerão aqui.</p>
-  <a href="index.html">← Voltar</a>
+<h1>Detalhes do Imóvel</h1>
+<img id="main-img" src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80" />
+<div class="thumb-container">
+<img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=100&q=80" class="active" onclick="document.getElementById('main-img').src=this.src; setActive(this)">
+<img src="https://images.unsplash.com/photo-1560185127-6f479b0d95fc?auto=format&fit=crop&w=100&q=80" onclick="document.getElementById('main-img').src=this.src; setActive(this)">
+<img src="https://images.unsplash.com/photo-1572120360610-d971b9c75b04?auto=format&fit=crop&w=100&q=80" onclick="document.getElementById('main-img').src=this.src; setActive(this)">
+<img src="https://images.unsplash.com/photo-1580584126279-2b0b5cf29e1a?auto=format&fit=crop&w=100&q=80" onclick="document.getElementById('main-img').src=this.src; setActive(this)">
+<img src="https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=100&q=80" onclick="document.getElementById('main-img').src=this.src; setActive(this)">
+</div>
+<p style="margin-top:16px;color:#bfbfbf">Localização: São Paulo<br>Preço: R$ 450.000<br>Descrição: Casa moderna, 3 quartos, excelente localização, segurança 24h, garagem para 2 carros.</p>
+<a href="index.html" style="color:#c59d26">← Voltar à página inicial</a>
+<script>
+function setActive(el){document.querySelectorAll('.thumb-container img').forEach(i=>i.classList.remove('active'));el.classList.add('active');}
+</script>
 </body>
 </html>
