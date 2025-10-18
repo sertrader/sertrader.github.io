@@ -3,189 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MariBroker - Imóveis</title>
+<title>MariBroker Imóveis</title>
 <style>
-:root {
-  --gold: #d4af37;
-  --black: #0e0e0e;
-}
-body {
-  background-color: var(--black);
-  color: white;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-header {
-  background: linear-gradient(90deg, var(--black), #1a1a1a);
-  color: var(--gold);
-  text-align: center;
-  padding: 20px;
-}
-header img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid var(--gold);
-}
-header h1 {
-  margin: 10px 0 5px;
-}
-header p {
-  color: #ccc;
-}
-section {
-  padding: 30px;
-}
-h2 {
-  color: var(--gold);
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 5px;
-}
-.carousel {
-  position: relative;
-  overflow: hidden;
-}
-.carousel-track {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-}
-.property-card {
-  min-width: 300px;
-  background: #1a1a1a;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-.property-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px var(--gold);
-}
-.property-card img {
-  width: 100%;
-  border-radius: 8px;
-}
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  color: var(--gold);
-  font-size: 36px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: 0.3s;
-}
-.arrow:hover {
-  background: var(--gold);
-  color: #000;
-}
+body { background-color: #0e0e0e; color: white; font-family: Arial, sans-serif; margin: 0; }
+header { text-align: center; padding: 20px; background: linear-gradient(90deg, #000, #d4af37); }
+h1 { color: #d4af37; }
+.carousel { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; width: 90%; margin: auto; }
+.carousel-track { display: flex; transition: transform 0.5s ease; }
+.property { min-width: 300px; margin: 10px; background: #222; border-radius: 10px; text-align: center; }
+.property img { width: 100%; border-radius: 10px; }
+.arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2em; color: #d4af37; cursor: pointer; user-select: none; z-index: 10; background: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px; }
 .arrow.left { left: 10px; }
 .arrow.right { right: 10px; }
-footer {
-  background: #111;
-  color: #999;
-  text-align: center;
-  padding: 20px;
-}
+.arrow:hover { background: #d4af37; color: black; }
 </style>
 </head>
 <body>
 <header>
-  <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=100&q=80" alt="Corretora Maria Silva">
-  <h1>MariBroker</h1>
-  <p>Maria Silva - Corretora de Imóveis | Seu sonho, nosso compromisso</p>
+  <h1>MariBroker Imóveis</h1>
+  <p>Seu sonho em boas mãos!</p>
 </header>
 
-<section>
-  <h2>Casas e Apartamentos</h2>
+<section id="casas">
+  <h2 style="text-align:center; color:#d4af37;">Casas e Apartamentos</h2>
   <div class="carousel">
-    <div class="arrow left" onclick="moveCarousel('casa', -1)">&#10094;</div>
-    <div class="carousel-track" id="carousel-casa"></div>
-    <div class="arrow right" onclick="moveCarousel('casa', 1)">&#10095;</div>
+    <div class="arrow left" onclick="move('casas', -1)">&#10094;</div>
+    <div class="carousel-track" id="track-casas"></div>
+    <div class="arrow right" onclick="move('casas', 1)">&#10095;</div>
   </div>
 </section>
-
-<section>
-  <h2>Terrenos</h2>
-  <div class="carousel">
-    <div class="arrow left" onclick="moveCarousel('terreno', -1)">&#10094;</div>
-    <div class="carousel-track" id="carousel-terreno"></div>
-    <div class="arrow right" onclick="moveCarousel('terreno', 1)">&#10095;</div>
-  </div>
-</section>
-
-<section>
-  <h2>Imóveis Comerciais</h2>
-  <div class="carousel">
-    <div class="arrow left" onclick="moveCarousel('comercial', -1)">&#10094;</div>
-    <div class="carousel-track" id="carousel-comercial"></div>
-    <div class="arrow right" onclick="moveCarousel('comercial', 1)">&#10095;</div>
-  </div>
-</section>
-
-<footer>
-  <p>Parceiros: Construtora Ideal | Banco CrediFácil | Arquitetura Premium</p>
-  <p>Siga-nos: Instagram | Facebook | LinkedIn</p>
-</footer>
 
 <script>
-const properties = {
-  casa: [
-    {id:'c1', city:'Juiz de Fora', price:'R$ 950.000', desc:'Casa moderna com 3 quartos e piscina', img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
-    {id:'c2', city:'Belo Horizonte', price:'R$ 1.200.000', desc:'Apartamento de luxo com vista panorâmica', img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
-    {id:'c3', city:'Rio de Janeiro', price:'R$ 2.100.000', desc:'Cobertura com vista para o mar', img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'},
-    {id:'c4', city:'São Paulo', price:'R$ 890.000', desc:'Apartamento moderno em Moema', img:'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80'},
-    {id:'c5', city:'Campinas', price:'R$ 700.000', desc:'Casa térrea em bairro nobre', img:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80'},
-    {id:'c6', city:'Niterói', price:'R$ 1.050.000', desc:'Apartamento frente mar', img:'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80'}
-  ],
-  terreno: [
-    {id:'t1', city:'Juiz de Fora', price:'R$ 350.000', desc:'Terreno 600m² próximo ao centro', img:'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80'},
-    {id:'t2', city:'Lagoa Santa', price:'R$ 280.000', desc:'Terreno plano com vista para lagoa', img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
-    {id:'t3', city:'Petrópolis', price:'R$ 420.000', desc:'Terreno arborizado em condomínio fechado', img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'},
-    {id:'t4', city:'Uberlândia', price:'R$ 310.000', desc:'Terreno residencial com escritura', img:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80'},
-    {id:'t5', city:'Volta Redonda', price:'R$ 260.000', desc:'Terreno em área em expansão', img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
-    {id:'t6', city:'Nova Lima', price:'R$ 480.000', desc:'Terreno em condomínio de luxo', img:'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80'}
-  ],
-  comercial: [
-    {id:'cm1', city:'Belo Horizonte', price:'R$ 1.500.000', desc:'Sala comercial mobiliada no centro', img:'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80'},
-    {id:'cm2', city:'São Paulo', price:'R$ 3.200.000', desc:'Prédio comercial 3 andares', img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'},
-    {id:'cm3', city:'Campinas', price:'R$ 2.800.000', desc:'Galpão industrial em excelente localização', img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
-    {id:'cm4', city:'Juiz de Fora', price:'R$ 980.000', desc:'Sala moderna em centro empresarial', img:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80'},
-    {id:'cm5', city:'Niterói', price:'R$ 1.950.000', desc:'Prédio comercial novo', img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
-    {id:'cm6', city:'Rio de Janeiro', price:'R$ 4.800.000', desc:'Espaço empresarial próximo ao aeroporto', img:'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80'}
-  ]
-};
-
-function createCards() {
-  Object.keys(properties).forEach(type => {
-    const track = document.getElementById(`carousel-${type}`);
-    properties[type].forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'property-card';
-      div.innerHTML = `<a href="imovel.html?id=${p.id}"><img src="${p.img}"><h3>${p.city}</h3><p>${p.price}</p><p>${p.desc}</p></a>`;
-      track.appendChild(div);
-    });
-  });
+const imoveis = [
+  {id:'c1',titulo:'Casa moderna com 3 quartos',img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
+  {id:'c2',titulo:'Apartamento de luxo',img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
+  {id:'c3',titulo:'Cobertura no Rio',img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'}
+];
+const trackCasas = document.getElementById('track-casas');
+imoveis.forEach(imovel=>{
+  const div=document.createElement('div');
+  div.className='property';
+  div.innerHTML=`<a href='imovel.html?id=${imovel.id}'><img src='${imovel.img}' alt='${imovel.titulo}'><p>${imovel.titulo}</p></a>`;
+  trackCasas.appendChild(div);
+});
+let index=0;
+function move(section,dir){
+  const track=document.getElementById('track-'+section);
+  const items=track.children.length;
+  index=(index+dir+items)%items;
+  track.style.transform=`translateX(${-index*320}px)`;
 }
-let positions = {casa: 0, terreno: 0, comercial: 0};
-function moveCarousel(type, direction) {
-  const track = document.getElementById(`carousel-${type}`);
-  const items = properties[type].length;
-  positions[type] += direction;
-  if (positions[type] < 0) positions[type] = items - 1;
-  if (positions[type] >= items) positions[type] = 0;
-  track.style.transform = `translateX(-${positions[type] * 320}px)`;
-}
-createCards();
 </script>
 </body>
 </html>
