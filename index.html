@@ -1,197 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MariBroker — Imóveis</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MariBroker - Imóveis</title>
 <style>
-:root{--bg:#0b0b0b;--gold:#c59d26;--muted:#bfbfbf;--gap:18px}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:#fff}
-.header{display:flex;align-items:center;gap:20px;padding:24px 4%;border-bottom:1px solid rgba(255,255,255,0.04)}
-.agent-photo{width:84px;height:84px;border-radius:12px;overflow:hidden;border:3px solid var(--gold);flex-shrink:0}
-.agent-photo img{width:100%;height:100%;object-fit:cover}
-.agent-info h1{margin:0;color:var(--gold);font-size:20px}
-.agent-info p{margin:6px 0 0;color:var(--muted);font-size:13px}
-.container{max-width:1200px;margin:28px auto;padding:0 20px}
-.segment{margin-top:28px}
-.segment h3{color:var(--gold);margin:0 0 12px 0;font-size:18px}
-.carousel-wrap{position:relative;background:transparent;padding:10px 0}
-.carousel-viewport{overflow:hidden}
-.carousel-track{display:flex;gap:var(--gap);transition:transform .35s ease}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;min-width:300px;flex:0 0 300px}
-.card .main{width:100%;height:170px;object-fit:cover;border-radius:8px;display:block}
-.thumbs{display:flex;gap:6px;justify-content:center;margin-top:8px}
-.thumbs img{width:46px;height:34px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent}
-.thumbs img.active{border-color:var(--gold)}
-.meta{display:flex;justify-content:space-between;color:var(--muted);margin-top:8px;font-size:14px}
-.title{color:var(--gold);font-weight:700;margin-top:8px;font-size:15px}
-.desc{color:#e6e6e6;margin-top:8px;font-size:13px}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
-.arrow.left{left:6px}
-.arrow.right{right:6px}
-.arrow svg{fill:var(--muted);width:18px;height:18px}
-.footer{margin-top:40px;padding:28px 4%;border-top:1px solid rgba(255,255,255,0.04);color:var(--muted)}
-@media(max-width:900px){.card{min-width:260px}}
+:root {
+  --gold: #d4af37;
+  --black: #0e0e0e;
+}
+body {
+  background-color: var(--black);
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: linear-gradient(90deg, var(--black), #1a1a1a);
+  color: var(--gold);
+  text-align: center;
+  padding: 20px;
+}
+header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+}
+header h1 {
+  margin: 10px 0 5px;
+}
+header p {
+  color: #ccc;
+}
+section {
+  padding: 30px;
+}
+h2 {
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 5px;
+}
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+.property-card {
+  min-width: 300px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.property-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--gold);
+}
+.property-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--gold);
+  font-size: 36px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.3s;
+}
+.arrow:hover {
+  background: var(--gold);
+  color: #000;
+}
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+footer {
+  background: #111;
+  color: #999;
+  text-align: center;
+  padding: 20px;
+}
 </style>
 </head>
 <body>
-<header class="header">
-  <div class="agent-photo"><img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80" alt="Corretor"></div>
-  <div class="agent-info">
-    <h1>MariBroker</h1>
-    <p>Maria Silva — Corretora (CRECI 12345) • (31) 99999-9999 • maria@maribroker.com</p>
-  </div>
+<header>
+  <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=100&q=80" alt="Corretora Maria Silva">
+  <h1>MariBroker</h1>
+  <p>Maria Silva - Corretora de Imóveis | Seu sonho, nosso compromisso</p>
 </header>
 
-<main class="container">
-  <section class="segment">
-    <h3>🏠 Casas e Apartamentos</h3>
-    <div class="carousel-wrap" data-carousel="casas">
-      <button class="arrow left" data-action="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-      <div class="carousel-viewport">
-        <div class="carousel-track" id="track-casas"></div>
-      </div>
-      <button class="arrow right" data-action="next" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></button>
-    </div>
-  </section>
-
-  <section class="segment">
-    <h3>🌳 Terrenos</h3>
-    <div class="carousel-wrap" data-carousel="terrenos">
-      <button class="arrow left" data-action="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-      <div class="carousel-viewport">
-        <div class="carousel-track" id="track-terrenos"></div>
-      </div>
-      <button class="arrow right" data-action="next" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></button>
-    </div>
-  </section>
-
-  <section class="segment">
-    <h3>🏢 Imóveis Comerciais</h3>
-    <div class="carousel-wrap" data-carousel="comerciais">
-      <button class="arrow left" data-action="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-      <div class="carousel-viewport">
-        <div class="carousel-track" id="track-comerciais"></div>
-      </div>
-      <button class="arrow right" data-action="next" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></button>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center">
-    <div><strong style="color:var(--gold)">Parceiros</strong><div style="color:var(--muted);margin-top:8px">Construtora Alfa • Banco Imobiliário • Studio Projetos</div></div>
-    <div><strong style="color:var(--gold)">Redes</strong><div style="color:var(--muted);margin-top:8px">Instagram • Facebook • WhatsApp • LinkedIn</div></div>
+<section>
+  <h2>Casas e Apartamentos</h2>
+  <div class="carousel">
+    <div class="arrow left" onclick="moveCarousel('casa', -1)">&#10094;</div>
+    <div class="carousel-track" id="carousel-casa"></div>
+    <div class="arrow right" onclick="moveCarousel('casa', 1)">&#10095;</div>
   </div>
+</section>
+
+<section>
+  <h2>Terrenos</h2>
+  <div class="carousel">
+    <div class="arrow left" onclick="moveCarousel('terreno', -1)">&#10094;</div>
+    <div class="carousel-track" id="carousel-terreno"></div>
+    <div class="arrow right" onclick="moveCarousel('terreno', 1)">&#10095;</div>
+  </div>
+</section>
+
+<section>
+  <h2>Imóveis Comerciais</h2>
+  <div class="carousel">
+    <div class="arrow left" onclick="moveCarousel('comercial', -1)">&#10094;</div>
+    <div class="carousel-track" id="carousel-comercial"></div>
+    <div class="arrow right" onclick="moveCarousel('comercial', 1)">&#10095;</div>
+  </div>
+</section>
+
+<footer>
+  <p>Parceiros: Construtora Ideal | Banco CrediFácil | Arquitetura Premium</p>
+  <p>Siga-nos: Instagram | Facebook | LinkedIn</p>
 </footer>
 
 <script>
-const DATA = {
-  casas: [
-    {id:'c1', title:'Sta Terezinha - Apartamento confortável', city:'Juiz de Fora', price:1250000, desc:'3 quartos, suíte, piscina.', photos:['https://images.unsplash.com/photo-1598300050535-0f586640e8a1?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154340-be6161b89d21?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584122162-7112c05322b0?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80']},
-    {id:'c2', title:'Apartamento Charmoso', city:'Belo Horizonte', price:650000, desc:'2 quartos, varanda.', photos:['https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1505691723518-36a0f9a6d9c6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584122162-7112c05322b0?auto=format&fit=crop&w=1200&q=80']},
-    {id:'c3', title:'Sobrado Familiar', city:'Juiz de Fora', price:780000, desc:'4 quartos, quintal grande.', photos:['https://images.unsplash.com/photo-1600585154340-1a1f7b0bfa2b?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154356-3c2de36f6fc6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1598928506310-0c4f8f0f9d53?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154357-7b332a0e9e6f?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80']},
-    {id:'c4', title:'Cobertura Luxuosa', city:'Rio de Janeiro', price:2350000, desc:'Penthouse com vista para o mar.', photos:['https://images.unsplash.com/photo-1505691723518-36a0f9a6d9c6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584122162-7112c05322b0?auto=format&fit=crop&w=1200&q=80']},
-    {id:'c5', title:'Casa de Campo', city:'Serra', price:920000, desc:'Área ampla e vista para a serra.', photos:['https://images.unsplash.com/photo-1505691723518-36a0f9a6d9c6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1493815793589-1d1e117aa1b4?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=80']},
-    {id:'c6', title:'Apartamento Cobertura', city:'Fortaleza', price:1340000, desc:'Cobertura com terraço e churrasqueira.', photos:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584122162-7112c05322b0?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154356-3c2de36f6fc6?auto=format&fit=crop&w=1200&q=80']},
-    {id:'c7', title:'Criei no TXT', city:'Juiz de Fora', price:500000, desc:'vcvasdfasll çlkasd lka  ds falçksdj fa d Cobertura com terraço e churrasqueira.', photos:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584122162-7112c05322b0?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154356-3c2de36f6fc6?auto=format&fit=crop&w=1200&q=80']}
+const properties = {
+  casa: [
+    {id:'c1', city:'Juiz de Fora', price:'R$ 950.000', desc:'Casa moderna com 3 quartos e piscina', img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
+    {id:'c2', city:'Belo Horizonte', price:'R$ 1.200.000', desc:'Apartamento de luxo com vista panorâmica', img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
+    {id:'c3', city:'Rio de Janeiro', price:'R$ 2.100.000', desc:'Cobertura com vista para o mar', img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'},
+    {id:'c4', city:'São Paulo', price:'R$ 890.000', desc:'Apartamento moderno em Moema', img:'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80'},
+    {id:'c5', city:'Campinas', price:'R$ 700.000', desc:'Casa térrea em bairro nobre', img:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80'},
+    {id:'c6', city:'Niterói', price:'R$ 1.050.000', desc:'Apartamento frente mar', img:'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80'}
   ],
-  terrenos: [
-    {id:'t1', title:'Terreno Amplo', city:'Mariana', price:310000, desc:'500 m², próximo ao centro.', photos:['https://images.unsplash.com/photo-1493815793589-1d1e117aa1b4?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80']},
-    {id:'t2', title:'Terreno Plano', city:'Juiz de Fora', price:250000, desc:'360 m², pronto para construir.', photos:['https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1493815793589-1d1e117aa1b4?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1505691723518-36a0f9a6d9c6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80']},
-    {id:'t3', title:'Lote Residencial', city:'Belo Horizonte', price:420000, desc:'Lote com vista agradável.', photos:['https://images.unsplash.com/photo-1521302080410-3a9f8b8f5f4d?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1493815793589-1d1e117aa1b4?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80']},
-    {id:'t4', title:'Terreno Condomínio', city:'Nova Lima', price:520000, desc:'Lote em condomínio fechado.', photos:['https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80']},
-    {id:'t5', title:'Terreno Rural', city:'Patos de Minas', price:185000, desc:'Ótimo para sítio e lazer.', photos:['https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1493815793589-1d1e117aa1b4?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80']},
-    {id:'t6', title:'Lote Comercial', city:'Uberlândia', price:620000, desc:'Terreno plano para empreendimento.', photos:['https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1493815793589-1d1e117aa1b4?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1521302080410-3a9f8b8f5f4d?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80']}
+  terreno: [
+    {id:'t1', city:'Juiz de Fora', price:'R$ 350.000', desc:'Terreno 600m² próximo ao centro', img:'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80'},
+    {id:'t2', city:'Lagoa Santa', price:'R$ 280.000', desc:'Terreno plano com vista para lagoa', img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
+    {id:'t3', city:'Petrópolis', price:'R$ 420.000', desc:'Terreno arborizado em condomínio fechado', img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'},
+    {id:'t4', city:'Uberlândia', price:'R$ 310.000', desc:'Terreno residencial com escritura', img:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80'},
+    {id:'t5', city:'Volta Redonda', price:'R$ 260.000', desc:'Terreno em área em expansão', img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
+    {id:'t6', city:'Nova Lima', price:'R$ 480.000', desc:'Terreno em condomínio de luxo', img:'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80'}
   ],
-  comerciais: [
-    {id:'cm1', title:'Sala Comercial - Centro', city:'Juiz de Fora', price:420000, desc:'50 m², ótimo fluxo.', photos:['https://images.unsplash.com/photo-1585129299025-776d234e7f3f?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1585129300157-33f62fc0fc6b?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1560448070-237cbd92f36c?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1572120360610-d971b9c5c176?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154340-be6161b89d21?auto=format&fit=crop&w=1200&q=80']},
-    {id:'cm2', title:'Loja na Avenida', city:'Belo Horizonte', price:550000, desc:'Vitrine ampla e alto fluxo.', photos:['https://images.unsplash.com/photo-1592595895526-374f35136b0f?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1581092795360-4c0378a0abf0?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154356-3c2de36f6fc6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154340-1a1f7b0bfa2b?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80']},
-    {id:'cm3', title:'Conjunto Comercial', city:'Contagem', price:880000, desc:'Conjunto de salas em prédio novo.', photos:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584122162-7112c05322b0?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1600585154340-be6161b89d21?auto=format&fit=crop&w=1200&q=80']},
-    {id:'cm4', title:'Escritório Corporativo', city:'São Paulo', price:1320000, desc:'Andar corporativo em prédio moderno.', photos:['https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1552437132-3b70e6f738bf?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542317854-3a1e7a1b3f82?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1560185127-6f479b0d95fc?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1580584126279-2b0b5cf29e1a?auto=format&fit=crop&w=1200&q=80']},
-    {id:'cm5', title:'Loja de Esquina', city:'Fortaleza', price:760000, desc:'Excelente ponto comercial.', photos:['https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1505691723518-36a0f9a6d9c6?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1592595895526-374f35136b0f?auto=format&fit=crop&w=1200&q=80']},
-    {id:'cm6', title:'Sala com Loft', city:'Curitiba', price:480000, desc:'Sala comercial com pé direito alto.', photos:['https://images.unsplash.com/photo-1600585154340-be6161b89d21?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1585129299025-776d234e7f3f?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1585129300157-33f62fc0fc6b?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1560448070-237cbd92f36c?auto=format&fit=crop&w=1200&q=80','https://images.unsplash.com/photo-1572120360610-d971b9c5c176?auto=format&fit=crop&w=1200&q=80']}
+  comercial: [
+    {id:'cm1', city:'Belo Horizonte', price:'R$ 1.500.000', desc:'Sala comercial mobiliada no centro', img:'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80'},
+    {id:'cm2', city:'São Paulo', price:'R$ 3.200.000', desc:'Prédio comercial 3 andares', img:'https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80'},
+    {id:'cm3', city:'Campinas', price:'R$ 2.800.000', desc:'Galpão industrial em excelente localização', img:'https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80'},
+    {id:'cm4', city:'Juiz de Fora', price:'R$ 980.000', desc:'Sala moderna em centro empresarial', img:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80'},
+    {id:'cm5', city:'Niterói', price:'R$ 1.950.000', desc:'Prédio comercial novo', img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80'},
+    {id:'cm6', city:'Rio de Janeiro', price:'R$ 4.800.000', desc:'Espaço empresarial próximo ao aeroporto', img:'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80'}
   ]
 };
 
-function createCard(item){
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.setAttribute('role','button');
-  card.onclick = ()=> window.location.href = 'imovel.html?id=' + item.id;
-
-  const main = document.createElement('img');
-  main.className = 'main';
-  main.src = item.photos[0];
-  main.alt = item.title;
-  main.id = item.id + '-main';
-  card.appendChild(main);
-
-  const thumbs = document.createElement('div');
-  thumbs.className = 'thumbs';
-  item.photos.forEach((p,idx)=>{
-    const t = document.createElement('img');
-    t.src = p;
-    t.alt = item.title + ' ' + (idx+1);
-    if(idx===0) t.classList.add('active');
-    t.onclick = (e)=>{ e.stopPropagation(); document.getElementById(item.id + '-main').src = p; thumbs.querySelectorAll('img').forEach(x=>x.classList.remove('active')); t.classList.add('active'); };
-    thumbs.appendChild(t);
+function createCards() {
+  Object.keys(properties).forEach(type => {
+    const track = document.getElementById(`carousel-${type}`);
+    properties[type].forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'property-card';
+      div.innerHTML = `<a href="imovel.html?id=${p.id}"><img src="${p.img}"><h3>${p.city}</h3><p>${p.price}</p><p>${p.desc}</p></a>`;
+      track.appendChild(div);
+    });
   });
-  card.appendChild(thumbs);
-
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  meta.innerHTML = `<span>${item.city}</span><span>${item.price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span>`;
-  card.appendChild(meta);
-
-  const title = document.createElement('div');
-  title.className = 'title';
-  title.textContent = item.title;
-  card.appendChild(title);
-
-  const desc = document.createElement('div');
-  desc.className = 'desc';
-  desc.textContent = item.desc;
-  card.appendChild(desc);
-
-  return card;
 }
-
-function mountCarousel(key){
-  const list = DATA[key];
-  const track = document.getElementById('track-' + key);
-  list.forEach(item=> track.appendChild(createCard(item)));
-
-  const wrap = track.parentElement.parentElement;
-  const btnPrev = wrap.querySelector('[data-action="prev"]');
-  const btnNext = wrap.querySelector('[data-action="next"]');
-  let index = 0;
-
-  function update(){
-    const card = track.querySelector('.card');
-    if(!card) return;
-    const gap = parseInt(getComputedStyle(track).gap) || 18;
-    const cardW = card.getBoundingClientRect().width;
-    const move = (cardW + gap) * index;
-    track.style.transform = 'translateX(' + (-move) + 'px)';
-    btnPrev.disabled = index <= 0;
-    btnNext.disabled = index >= list.length - 1;
-    btnPrev.style.opacity = btnPrev.disabled ? '0.35' : '1';
-    btnNext.style.opacity = btnNext.disabled ? '0.35' : '1';
-  }
-
-  btnPrev.addEventListener('click', ()=>{ index = Math.max(0, index - 1); update(); });
-  btnNext.addEventListener('click', ()=>{ index = Math.min(list.length - 1, index + 1); update(); });
-  window.addEventListener('resize', update);
-  setTimeout(update, 200);
+let positions = {casa: 0, terreno: 0, comercial: 0};
+function moveCarousel(type, direction) {
+  const track = document.getElementById(`carousel-${type}`);
+  const items = properties[type].length;
+  positions[type] += direction;
+  if (positions[type] < 0) positions[type] = items - 1;
+  if (positions[type] >= items) positions[type] = 0;
+  track.style.transform = `translateX(-${positions[type] * 320}px)`;
 }
-
-document.addEventListener('DOMContentLoaded', ()=>{
-  mountCarousel('casas');
-  mountCarousel('terrenos');
-  mountCarousel('comerciais');
-});
+createCards();
 </script>
 </body>
 </html>
