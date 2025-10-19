@@ -3,49 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Imóvel - MariBroker</title>
+<title>Detalhes do Imóvel - MariBroker</title>
 <style>
-body { background-color:#0e0e0e; color:white; font-family:Arial,sans-serif; margin:0; padding:20px; }
-img { border-radius:10px; }
-.thumbs { display:flex; gap:10px; margin-top:10px; }
-.thumbs img { width:100px; cursor:pointer; transition:0.3s; }
-.thumbs img:hover { transform:scale(1.05); box-shadow:0 0 10px #d4af37; }
+body {
+  background-color: #0e0e0e;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+}
+.main-img {
+  width: 100%;
+  border-radius: 10px;
+}
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.thumbnails img {
+  width: 100px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.thumbnails img:hover {
+  box-shadow: 0 0 10px #d4af37;
+  transform: scale(1.05);
+}
 </style>
 </head>
 <body>
-<h1 id="titulo"></h1>
-<h2 id="preco"></h2>
-<p id="descricao"></p>
-<img id="main" width="100%" alt="Imagem principal">
-<div class="thumbs" id="thumbs"></div>
-
+<div class="container">
+  <h1 id="title"></h1>
+  <h3 id="city"></h3>
+  <h2 id="price"></h2>
+  <p id="desc"></p>
+  <img id="mainImage" class="main-img" src="" alt="Imóvel">
+  <div id="thumbs" class="thumbnails"></div>
+</div>
 <script>
-const dados = {
-  c1:{titulo:"Casa moderna com 3 quartos",preco:"R$ 950.000",descricao:"Linda casa com piscina e área gourmet.",imgs:[
-    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80"]},
-  c2:{titulo:"Apartamento de luxo",preco:"R$ 1.200.000",descricao:"Varanda gourmet e vista incrível.",imgs:[
-    "https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80"]},
-  c3:{titulo:"Cobertura no Rio",preco:"R$ 2.100.000",descricao:"Vista deslumbrante para o mar.",imgs:[
-    "https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80"]}
+const imóveis = {
+  c1: {title:"Casa moderna com 3 quartos e piscina",city:"Juiz de Fora",price:"R$ 950.000",
+  desc:"Linda casa moderna com 3 quartos, suíte, área gourmet e piscina. Localização privilegiada.",
+  imgs:[
+  "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e3b5b8c0a44?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1615874959474-d609fdd8c2d9?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80"]}
 };
-const params=new URLSearchParams(window.location.search);
-const id=params.get("id");
-const im=dados[id];
-document.getElementById("titulo").innerText=im.titulo;
-document.getElementById("preco").innerText=im.preco;
-document.getElementById("descricao").innerText=im.descricao;
-document.getElementById("main").src=im.imgs[0];
-const thumbs=document.getElementById("thumbs");
-im.imgs.forEach(src=>{
-  const img=document.createElement("img");
-  img.src=src;
-  img.onclick=()=>document.getElementById("main").src=src;
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const imovel = imóveis[id] || imóveis.c1;
+document.getElementById("title").innerText = imovel.title;
+document.getElementById("city").innerText = imovel.city;
+document.getElementById("price").innerText = imovel.price;
+document.getElementById("desc").innerText = imovel.desc;
+document.getElementById("mainImage").src = imovel.imgs[0];
+const thumbs = document.getElementById("thumbs");
+imovel.imgs.forEach(src => {
+  const img = document.createElement("img");
+  img.src = src;
+  img.onclick = () => document.getElementById("mainImage").src = src;
   thumbs.appendChild(img);
 });
 </script>
